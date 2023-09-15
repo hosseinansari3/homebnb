@@ -1,5 +1,6 @@
 "use client";
 
+import { SafeUser } from "@/app/types";
 import Container from "../Container";
 import Logo from "./Logo";
 import Search from "./Search";
@@ -7,11 +8,10 @@ import UserMenu from "./UserMenu";
 import User from "@/models/User";
 
 interface NavbarProps {
-  currentUser?: typeof User | null;
+  currentUser?: any | null;
 }
 
 const Navbar: React.FC<NavbarProps> = ({ currentUser }) => {
-  console.log("user: ", currentUser);
   return (
     <div className="fixed w-full bg-white z-10 shaddow-sm">
       <div className="py-4 border-b-[1px]">
@@ -28,7 +28,7 @@ const Navbar: React.FC<NavbarProps> = ({ currentUser }) => {
           >
             <Logo />
             <Search />
-            <UserMenu />
+            <UserMenu currentUser={currentUser} />
           </div>
         </Container>
       </div>

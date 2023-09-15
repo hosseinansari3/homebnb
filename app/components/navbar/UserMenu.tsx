@@ -6,8 +6,15 @@ import { AiOutlineMenu } from "react-icons/ai";
 import Avatar from "../Avatar";
 import MenuItem from "./MenuItem";
 import useLoginModal from "@/app/hooks/useLoginModal";
+import { signOut } from "next-auth/react";
+import { SafeUser } from "@/app/types";
+import User from "@/models/User";
 
-const UserMenu = () => {
+interface UserMenuProps {
+  currentUser?: any | null;
+}
+
+const UserMenu: React.FC<UserMenuProps> = ({ currentUser }) => {
   const registerModal = useRegisterModal();
   const loginModal = useLoginModal();
   const [isOpen, setIsOpen] = useState(false);
@@ -15,6 +22,8 @@ const UserMenu = () => {
   const toggleOpen = useCallback(() => {
     setIsOpen((value) => !value);
   }, []);
+
+  console.log("src: " + JSON.stringify(currentUser));
 
   return (
     <div className="relative">
@@ -56,7 +65,7 @@ const UserMenu = () => {
         >
           <AiOutlineMenu />
           <div className="hidden md:block">
-            <Avatar />
+            <Avatar src={currentUser?.image} />
           </div>
         </div>
       </div>
@@ -77,8 +86,22 @@ const UserMenu = () => {
         >
           <div className="flex flex-col cursor-pointer">
             <>
-              <MenuItem onClick={loginModal.onOpen} label={"Login"} />
-              <MenuItem onClick={registerModal.onOpen} label={"Sign up"} />
+              {currentUser ? (
+                <>
+                  <MenuItem label="My trips" onClick={() => {}} />
+                  <MenuItem label="My favorites" onClick={() => {}} />
+                  <MenuItem label="My reservations" onClick={() => {}} />
+                  <MenuItem label="My properties" onClick={() => {}} />
+                  <MenuItem label="Airbnb your home" onClick={() => {}} />
+                  <hr />
+                  <MenuItem label="Logout" onClick={() => signOut()} />
+                </>
+              ) : (
+                <>
+                  <MenuItem label="Login" onClick={loginModal.onOpen} />
+                  <MenuItem label="Sign up" onClick={registerModal.onOpen} />
+                </>
+              )}
             </>
           </div>
         </div>

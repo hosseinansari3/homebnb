@@ -15,11 +15,13 @@ export default async function getCurrentUser() {
       return null;
     }
 
-    const currentUser = await User.findOne({ email: session.user.email });
+    const currentUser = await User.findOne({
+      email: session.user.email,
+    }).lean();
+
     if (!currentUser) {
       return null;
     }
-
     return {
       ...currentUser,
       createdAt: currentUser.createdAt.toISOString(),
