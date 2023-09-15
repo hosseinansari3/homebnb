@@ -6,6 +6,7 @@ import Logo from "./Logo";
 import Search from "./Search";
 import UserMenu from "./UserMenu";
 import User from "@/models/User";
+import Categories from "./Categories";
 
 interface NavbarProps {
   currentUser?: any | null;
@@ -32,6 +33,7 @@ const Navbar: React.FC<NavbarProps> = ({ currentUser }) => {
           </div>
         </Container>
       </div>
+      <Categories />
     </div>
   );
 };
