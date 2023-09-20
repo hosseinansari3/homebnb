@@ -18,7 +18,6 @@ export async function POST(request: Request, { params }: { params: IParams }) {
 
   const { listingId } = params;
   const listingIdObj = new Types.ObjectId(listingId);
-  console.log("listingID: " + typeof listingId);
 
   if (!listingId || typeof listingId !== "string") {
     throw new Error("Invalid ID");
@@ -50,12 +49,14 @@ export async function DELETE(
   }
 
   const { listingId } = params;
+  console.log("listingID: " + typeof listingId);
 
   if (!listingId || typeof listingId !== "string") {
     throw new Error("Invalid ID");
   }
 
   let favoriteIds = [...(currentUser.favoriteIds || [])];
+  const listingIdObj = new Types.ObjectId(listingId);
 
   favoriteIds = favoriteIds.filter((id) => id !== listingId);
 
