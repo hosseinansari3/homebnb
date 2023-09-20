@@ -19,7 +19,7 @@ const userSchema = new Schema(
     },
     favoriteIds: [
       {
-        type: Schema.Types.ObjectId,
+        type: String,
       },
     ],
     accounts: [
