@@ -11,7 +11,14 @@ const listingSchema = new mongoose.Schema(
     bathroomCount: Number,
     guestCount: Number,
     locationValue: String,
-    user: { type: mongoose.Schema.Types.ObjectId, ref: "User" },
+    kos: String,
+    user: { type: mongoose.Schema.Types.ObjectId, ref: "Users" },
+    reservations: [
+      {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "Reservations",
+      },
+    ],
     price: Number,
   },
   { timestamps: true }

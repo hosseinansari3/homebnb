@@ -19,25 +19,7 @@ const userSchema = new Schema(
     },
     favoriteIds: [
       {
-        type: String,
-      },
-    ],
-    accounts: [
-      {
-        type: Schema.Types.ObjectId,
-        ref: "Account",
-      },
-    ],
-    listings: [
-      {
-        type: Schema.Types.ObjectId,
-        ref: "Listing",
-      },
-    ],
-    reservations: [
-      {
-        type: Schema.Types.ObjectId,
-        ref: "Reservation",
+        type: mongoose.Schema.Types.ObjectId,
       },
     ],
   },

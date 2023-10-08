@@ -1,7 +1,7 @@
 import mongoose, { Schema } from "mongoose";
 
 const accountSchema = new mongoose.Schema({
-  userId: { type: mongoose.Schema.Types.ObjectId, ref: "User" },
+  userId: { type: mongoose.Schema.Types.ObjectId, ref: "Users" },
   type: String,
   provider: String,
   providerAccountId: String,

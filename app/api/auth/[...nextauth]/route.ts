@@ -58,7 +58,7 @@ export const authOptions: AuthOptions = {
   },
   callbacks: {
     async signIn({ user, account, profile, email, credentials }) {
-      if (account.type === "oauth") {
+      if (account?.type === "oauth") {
         return await singInWithOAuh({ account, user });
       }
 
@@ -76,7 +76,7 @@ const handler = NextAuth(authOptions);
 
 export { handler as GET, handler as POST };
 
-async function singInWithOAuh({ account, user }) {
+async function singInWithOAuh({ account, user }: any) {
   const exuser = await User.findOne({ email: user.email });
 
   if (exuser) return true;

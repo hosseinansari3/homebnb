@@ -1,15 +1,18 @@
 import mongoose, { Schema } from "mongoose";
 
-const reservationSchema = new mongoose.Schema({
-  userId: { type: mongoose.Schema.Types.ObjectId, ref: "User" },
-  listingId: { type: mongoose.Schema.Types.ObjectId, ref: "Listing" },
-  startDate: Date,
-  endDate: Date,
-  totalPrice: Number,
-  createdAt: { type: Date, default: Date.now },
-});
+const reservationSchema = new mongoose.Schema(
+  {
+    userId: { type: mongoose.Schema.Types.ObjectId, ref: "Users" },
+    listingId: { type: mongoose.Schema.Types.ObjectId, ref: "Listings" },
+    startDate: Date,
+    endDate: Date,
+    totalPrice: Number,
+    createdAt: { type: Date, default: Date.now },
+  },
+  { timestamps: true }
+);
 
 const Reservation =
-  mongoose.models.reservations ||
+  mongoose.models.Reservations ||
   mongoose.model("Reservations", reservationSchema);
 export default Reservation;

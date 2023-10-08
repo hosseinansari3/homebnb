@@ -4,7 +4,7 @@ import getCurrentUser from "@/app/actions/getCurrentUser";
 import Listing from "@/models/Listing";
 
 export async function POST(request: Request) {
-  const currentUser = await getCurrentUser();
+  const currentUser: any = await getCurrentUser();
 
   if (!currentUser) {
     return NextResponse.error();
@@ -36,10 +36,11 @@ export async function POST(request: Request) {
     category,
     roomCount,
     bathroomCount,
+    reservations: [],
     guestCount,
     locationValue: location.value,
     price: parseInt(price, 10),
-    userId: currentUser.id,
+    user: currentUser._id,
   });
 
   const savedListing = await listing.save();
