@@ -28,7 +28,7 @@ const ReservationsClient: React.FC<ReservationsClientProps> = ({
       axios
         .delete(`/api/reservations/${id}`)
         .then(() => {
-          toast.success("Reservation cancelled");
+          toast.success("رزرو شما لغو شد");
           router.refresh();
         })
         .catch(() => {

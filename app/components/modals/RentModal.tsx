@@ -96,14 +96,14 @@ const RentModal = () => {
     axios
       .post("/api/listings", data)
       .then(() => {
-        toast.success("Listing created!");
+        toast.success("ملک شما اضافه شد!");
         router.refresh();
         reset();
         setStep(STEPS.CATEGORY);
         rentModal.onClose();
       })
       .catch(() => {
-        toast.error("Something went wrong.");
+        toast.error("خطایی رخ داد");
       })
       .finally(() => {
         setIsLoading(false);
@@ -112,10 +112,10 @@ const RentModal = () => {
 
   const actionLabel = useMemo(() => {
     if (step === STEPS.PRICE) {
-      return "Create";
+      return "قرار دادن";
     }
 
-    return "Next";
+    return "بعدی";
   }, [step]);
 
   const secondaryActionLabel = useMemo(() => {
@@ -123,14 +123,14 @@ const RentModal = () => {
       return undefined;
     }
 
-    return "Back";
+    return "قبلی";
   }, [step]);
 
   let bodyContent = (
     <div className="flex flex-col gap-8">
       <Heading
-        title="Which of these best describes your place?"
-        subtitle="Pick a category"
+        title="نوع ملک خود را مشخص کنید"
+        subtitle="یک دسته بندی را انتخاب کنید"
       />
       <div
         className="
@@ -138,7 +138,7 @@ const RentModal = () => {
           grid-cols-1 
           md:grid-cols-2 
           gap-3
-          max-h-[50vh]
+          max-h-[40vh]
           overflow-y-auto
         "
       >
@@ -158,10 +158,10 @@ const RentModal = () => {
 
   if (step === STEPS.LOCATION) {
     bodyContent = (
-      <div className="flex flex-col gap-8">
+      <div className="flex flex-col gap-4">
         <Heading
-          title="Where is your place located?"
-          subtitle="Help guests find you!"
+          title="مکان ملک خود را انتخاب کنید"
+          subtitle="ملکتان در کدام شهر است؟"
         />
         <CountrySelect
           value={location}
@@ -174,30 +174,30 @@ const RentModal = () => {
 
   if (step === STEPS.INFO) {
     bodyContent = (
-      <div className="flex flex-col gap-8">
+      <div className="flex flex-col gap-4">
         <Heading
-          title="Share some basics about your place"
-          subtitle="What amenitis do you have?"
+          title="اطلاعات ملک خود را ارائه دهید"
+          subtitle="ملکتان چه امکاناتی دارد؟"
         />
         <Counter
           onChange={(value) => setCustomValue("guestCount", value)}
           value={guestCount}
-          title="Guests"
-          subtitle="How many guests do you allow?"
+          title="مسافران"
+          subtitle="اجازه اقامت چند نفر را می دهید؟"
         />
         <hr />
         <Counter
           onChange={(value) => setCustomValue("roomCount", value)}
           value={roomCount}
-          title="Rooms"
-          subtitle="How many rooms do you have?"
+          title="اتاق ها"
+          subtitle="ملکتان چند اتاق دارد؟"
         />
         <hr />
         <Counter
           onChange={(value) => setCustomValue("bathroomCount", value)}
           value={bathroomCount}
-          title="Bathrooms"
-          subtitle="How many bathrooms do you have?"
+          title="سرویس بهداشتی"
+          subtitle="ملکتان چند سرویس بهداشتی دارد؟"
         />
       </div>
     );
@@ -205,10 +205,10 @@ const RentModal = () => {
 
   if (step === STEPS.IMAGES) {
     bodyContent = (
-      <div className="flex flex-col gap-8">
+      <div className="flex flex-col gap-4">
         <Heading
-          title="Add a photo of your place"
-          subtitle="Show guests what your place looks like!"
+          title="عکس ملک خود را اضافه کنید"
+          subtitle="ملکتان را برای مسافران به نمایش بگذارید!"
         />
         <ImageUpload
           onChange={(value) => setCustomValue("imageSrc", value)}
@@ -222,12 +222,13 @@ const RentModal = () => {
     bodyContent = (
       <div className="flex flex-col gap-8">
         <Heading
-          title="How would you describe your place?"
-          subtitle="Short and sweet works best!"
+          title="ملکتان را توصیف کنید"
+          subtitle="یک توصیف کوتاه و مفید بنویسید"
         />
         <Input
+          key={0}
           id="title"
-          label="Title"
+          label="عنوان"
           disabled={isLoading}
           register={register}
           errors={errors}
@@ -235,8 +236,9 @@ const RentModal = () => {
         />
         <hr />
         <Input
+          key={1}
           id="description"
-          label="Description"
+          label="توضیحات"
           disabled={isLoading}
           register={register}
           errors={errors}
@@ -250,13 +252,14 @@ const RentModal = () => {
     bodyContent = (
       <div className="flex flex-col gap-8">
         <Heading
-          title="Now, set your price"
-          subtitle="How much do you charge per night?"
+          title="قیمت خود را تعیین کنید"
+          subtitle="هزینه اسکان به ازای هر شب را تعیین کنید"
         />
         <Input
           id="price"
-          label="Price"
+          label="قیمت"
           formatPrice
+          key={2}
           type="number"
           disabled={isLoading}
           register={register}
@@ -270,7 +273,7 @@ const RentModal = () => {
   return (
     <Modal
       isOpen={rentModal.isOpen}
-      title="Airbnb your home!"
+      title="ملک خود را اجاره دهید"
       body={bodyContent}
       actionLabel={actionLabel}
       secondaryActionLabel={secondaryActionLabel}

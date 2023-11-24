@@ -8,14 +8,15 @@ import { useRouter } from "next/navigation";
 import { differenceInDays, eachDayOfInterval } from "date-fns";
 
 import useLoginModal from "@/app/hooks/useLoginModal";
-import { SafeUser } from "@/app/types";
 
 import Container from "@/app/components/Container";
 import { categories } from "@/app/components/navbar/Categories";
 import ListingHead from "@/app/components/listings/ListingHead";
 import ListingInfo from "@/app/components/listings/ListingInfo";
 import ListingReservation from "@/app/components/listings/ListingReservation";
-import { revalidatePath } from "next/cache";
+
+import "react-modern-calendar-datepicker/lib/DatePicker.css";
+import { DayRange } from "@hassanmojab/react-modern-calendar-datepicker";
 
 const initialDateRange = {
   startDate: new Date(),
@@ -26,9 +27,9 @@ const initialDateRange = {
 interface ListingClientProps {
   reservations?: any[];
   listing: any & {
-    user: SafeUser;
+    user: any;
   };
-  currentUser?: SafeUser | null;
+  currentUser?: any | null;
 }
 
 const ListingClient: React.FC<ListingClientProps> = ({
@@ -41,6 +42,7 @@ const ListingClient: React.FC<ListingClientProps> = ({
 
   const disabledDates = useMemo(() => {
     let dates: Date[] = [];
+    let dates2: any[] = [];
 
     reservations.forEach((reservation: any) => {
       const range = eachDayOfInterval({
@@ -50,8 +52,20 @@ const ListingClient: React.FC<ListingClientProps> = ({
 
       dates = [...dates, ...range];
     });
+    console.log("disabledDates", dates);
 
-    return dates;
+    dates.forEach((date: Date) => {
+      const dateObj = {
+        year: date.getFullYear(),
+        month: date.getMonth(),
+        day: date.getDate(),
+      };
+      dates2 = [...dates2, dateObj];
+    });
+
+    console.log("disabledDates22", dates2);
+
+    return dates2;
   }, [reservations]);
 
   const category = useMemo(() => {
@@ -61,11 +75,22 @@ const ListingClient: React.FC<ListingClientProps> = ({
   const [isLoading, setIsLoading] = useState(false);
   const [totalPrice, setTotalPrice] = useState(listing.price);
   const [dateRange, setDateRange] = useState<Range>(initialDateRange);
+  const [selectedDayRange, setSelectedDayRange] = useState<DayRange>({
+    from: null,
+    to: null,
+  });
 
   useEffect(() => {
-    console.log("date range: " + JSON.stringify(dateRange));
-  }, [dateRange]);
-
+    console.log("startDate", dateRange?.startDate);
+    console.log(
+      "startDatePersian",
+      new Date(
+        selectedDayRange?.from?.year,
+        selectedDayRange?.from?.month,
+        selectedDayRange?.from?.day
+      )
+    );
+  }, [dateRange, selectedDayRange]);
   const onCreateReservation = useCallback(() => {
     if (!currentUser) {
       return loginModal.onOpen();
@@ -75,15 +100,21 @@ const ListingClient: React.FC<ListingClientProps> = ({
     axios
       .post("/api/reservations", {
         totalPrice,
-        startDate: dateRange.startDate,
-        endDate: dateRange.endDate,
+        startDate: new Date(
+          selectedDayRange?.from?.year,
+          selectedDayRange?.from?.month,
+          selectedDayRange?.from?.day
+        ),
+        endDate: new Date(
+          selectedDayRange?.to?.year,
+          selectedDayRange?.to?.month,
+          selectedDayRange?.to?.day
+        ),
         listingId: listing?._id,
       })
-      .then((res) => {
-        toast.success("Listing reserved!" + res.status);
+      .then(() => {
+        toast.success("ملک رزرو شد!");
         setDateRange(initialDateRange);
-        console.log(JSON.stringify(res.data));
-
         router.push("/trips");
       })
       .catch(() => {
@@ -92,11 +123,30 @@ const ListingClient: React.FC<ListingClientProps> = ({
       .finally(() => {
         setIsLoading(false);
       });
-  }, [totalPrice, dateRange, listing?._id, router, currentUser, loginModal]);
+  }, [
+    totalPrice,
+    dateRange,
+    selectedDayRange,
+    listing?._id,
+    router,
+    currentUser,
+    loginModal,
+  ]);
 
   useEffect(() => {
-    if (dateRange.startDate && dateRange.endDate) {
-      const dayCount = differenceInDays(dateRange.endDate, dateRange.startDate);
+    if (selectedDayRange?.to && selectedDayRange?.from) {
+      const dayCount = differenceInDays(
+        new Date(
+          selectedDayRange?.to?.year,
+          selectedDayRange?.to?.month,
+          selectedDayRange?.to?.day
+        ),
+        new Date(
+          selectedDayRange?.from?.year,
+          selectedDayRange?.from?.month,
+          selectedDayRange?.from?.day
+        )
+      );
 
       if (dayCount && listing.price) {
         setTotalPrice(dayCount * listing.price);
@@ -104,7 +154,7 @@ const ListingClient: React.FC<ListingClientProps> = ({
         setTotalPrice(listing.price);
       }
     }
-  }, [dateRange, listing.price]);
+  }, [dateRange, selectedDayRange, listing.price]);
 
   return (
     <Container>
@@ -151,8 +201,8 @@ const ListingClient: React.FC<ListingClientProps> = ({
               <ListingReservation
                 price={listing.price}
                 totalPrice={totalPrice}
-                onChangeDate={(value) => setDateRange(value)}
-                dateRange={dateRange}
+                onChangeDate={setSelectedDayRange}
+                dateRange={selectedDayRange}
                 onSubmit={onCreateReservation}
                 disabled={isLoading}
                 disabledDates={disabledDates}

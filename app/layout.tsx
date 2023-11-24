@@ -1,6 +1,6 @@
 import "./globals.css";
 import type { Metadata } from "next";
-import { Inter } from "next/font/google";
+import { Vazirmatn } from "next/font/google";
 import Navbar from "./components/navbar/Navbar";
 import Modal from "./components/modals/Modal";
 import RegisterModal from "./components/modals/RegisterModal";
@@ -9,8 +9,13 @@ import LoginModal from "./components/modals/LoginModal";
 import getCurrentUser from "./actions/getCurrentUser";
 import RentModal from "./components/modals/RentModal";
 import SearchModal from "./components/modals/SearchModal";
+import "next/font/local/";
+import localFont from "next/font/local";
 
-const inter = Inter({ subsets: ["latin"] });
+const myFont = localFont({
+  src: "../public/fonts/Vazirmatn-FD-Black.ttf",
+});
+const vazir = Vazirmatn({ subsets: ["arabic"] });
 
 export const metadata: Metadata = {
   title: "homebnb",
@@ -24,8 +29,8 @@ export default async function RootLayout({
 }) {
   const currentUser = await getCurrentUser();
   return (
-    <html lang="en">
-      <body className={inter.className}>
+    <html lang="fa" dir="rtl">
+      <body className={vazir.className}>
         <ToasterProvider />
         <RegisterModal />
         <LoginModal />

@@ -1,19 +1,29 @@
 "use client";
 
-import { Range } from "react-date-range";
+import { DateRange, Range } from "react-date-range";
 
 import Button from "../Button";
 
-import Calendar from "../inputs/Calendar";
+import {
+  Calendar,
+  DayRange,
+  DayValue,
+  Day,
+} from "@hassanmojab/react-modern-calendar-datepicker";
+import localFont from "next/font/local";
+
+const myFont = localFont({
+  src: "../../../public/fonts/Vazirmatn-FD-Regular.woff2",
+});
 
 interface ListingReservationProps {
   price: number;
-  dateRange: Range;
+  dateRange: DayRange;
   totalPrice: number;
-  onChangeDate: (value: Range) => void;
+  onChangeDate: (value: DayRange) => void;
   onSubmit: () => void;
   disabled?: boolean;
-  disabledDates: Date[];
+  disabledDates: Day[];
 }
 
 const ListingReservation: React.FC<ListingReservationProps> = ({
@@ -39,36 +49,37 @@ const ListingReservation: React.FC<ListingReservationProps> = ({
         className="
       flex flex-row items-center gap-1 p-4"
       >
-        <div className="text-2xl font-semibold">$ {price}</div>
-        <div className="font-light text-neutral-600">night</div>
+        <div className={`${myFont.className} text-2xl font-semibold`}>
+          {price}
+        </div>
+        <div className="font-light text-neutral-600">تومان به ازای هر شب</div>
       </div>
       <hr />
       <Calendar
+        calendarClassName="!contents"
         value={dateRange}
-        disabledDates={disabledDates}
-        onChange={(value) => {
-          console.log(value.selection);
-          onChangeDate(value.selection);
-        }}
+        onChange={onChangeDate}
+        locale={"fa"}
+        disabledDays={disabledDates}
+        shouldHighlightWeekends
       />
+
       <hr />
       <div className="p-4">
         <Button disabled={disabled} label="Reserve" onClick={onSubmit} />
       </div>
       <hr />
       <div
-        className="
-          p-4 
+        className={`${myFont.className} p-4 
           flex 
           flex-row 
           items-center 
           justify-between
           font-semibold
-          text-lg
-        "
+          text-lg`}
       >
-        <div>Total</div>
-        <div>$ {totalPrice}</div>
+        <div>قیمت کل</div>
+        <div>{totalPrice}تومان</div>
       </div>
     </div>
   );

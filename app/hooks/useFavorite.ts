@@ -42,9 +42,9 @@ const useFavorite = ({ listingId, currentUser }: IUseFavorite) => {
 
         await request();
         router.refresh();
-        toast.success("Success");
+        toast.success("با موفقیت انجام شد");
       } catch (error) {
-        toast.error("Something went wrong.");
+        toast.error("خطایی رخ داد");
       }
     },
     [currentUser, hasFavorited, listingId, loginModal, router]

@@ -55,7 +55,7 @@ const ListingInfo: React.FC<ListingInfoProps> = ({
             gap-2
           "
         >
-          <div>Hosted by {user?.name}</div>
+          <div> {user?.name} صاحب ملک:</div>
           <Avatar src={user?.image} />
         </div>
         <div
@@ -88,7 +88,9 @@ const ListingInfo: React.FC<ListingInfoProps> = ({
       >
         {description}
       </div>
+
       <hr />
+
       <Map center={coordinates} />
     </div>
   );

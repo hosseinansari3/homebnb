@@ -19,8 +19,8 @@ const ReservationsPage = async () => {
   if (reservations?.length === 0) {
     return (
       <EmptyState
-        title="No reservations found"
-        subtitle="Looks like you have no reservations on your properties."
+        title="ملک رزرو شده ای یافت نشد!"
+        subtitle="هیچ یک از ملک های شما رزرو نشده است!"
       />
     );
   }

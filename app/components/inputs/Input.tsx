@@ -1,7 +1,14 @@
 "use client";
 
+import { useEffect, useState } from "react";
 import { FieldErrors, FieldValues, UseFormRegister } from "react-hook-form";
 import { BiDollar } from "react-icons/bi";
+import Persian from "persianjs";
+import localFont from "next/font/local";
+
+const myFont = localFont({
+  src: "../../../public/fonts/Vazirmatn-FD-Regular.woff2",
+});
 
 interface InputProps {
   id: string;
@@ -24,8 +31,42 @@ const Input: React.FC<InputProps> = ({
   required,
   errors,
 }) => {
+  const [isValue, setIsValue] = useState(false);
+  const [inputValue, setInputValue] = useState("");
+  const [pricePersValue, setpricePersValue] = useState("0");
+  const [numericValue, setNumericValue] = useState("");
+  const [pressedKey, setpressedKey] = useState("");
+
+  /* const handleInputChange = (e) => {
+    const value = e.target.value;
+    console.log("GGG", e);
+    console.log("Type of inputValue:", inputValue.toString());
+    if (pressedKey === "Backspace") {
+      // Handle the Backspace key press by removing the last character
+      console.log("Type of inputValue:", typeof inputValue.toString());
+      const numericValue = inputValue.toString().slice(0, -1);
+      const persianNumber = Persian(numericValue).englishNumber();
+
+      setNumericValue(numericValue);
+      setInputValue(persianNumber);
+    } else {
+      // Append the new input value to the existing value
+      const numeric = value.replace(/[^0-9]/g, "");
+      const numericValue = inputValue + numeric;
+      const persianNumber = Persian(numericValue).englishNumber();
+
+      setNumericValue(numericValue);
+      setInputValue(persianNumber);
+    }
+  };
+*/
+
+  const handleInputChange = (e) => {
+    setInputValue(e.target.value);
+  };
+
   return (
-    <div className="w-full relative">
+    <div className="w-full relative mb-10">
       {formatPrice && (
         <BiDollar
           size={24}
@@ -39,11 +80,19 @@ const Input: React.FC<InputProps> = ({
       )}
       <input
         id={id}
+        type={"text"}
         disabled={disabled}
-        {...register(id, { required })}
+        onKeyDown={(e) => {
+          setpressedKey(e.key);
+        }}
+        {...register(id, {
+          required,
+          onChange: handleInputChange,
+        })}
         placeholder=" "
-        type={type}
         className={`
+        ${myFont.className}
+        absolute
           peer
           w-full
           p-4
@@ -63,7 +112,9 @@ const Input: React.FC<InputProps> = ({
       />
       <label
         className={`
-          absolute 
+          relative
+          float-right
+          mr-7
           text-md
           duration-150 
           transform 
@@ -71,11 +122,9 @@ const Input: React.FC<InputProps> = ({
           top-5 
           z-10 
           origin-[0] 
-          ${formatPrice ? "left-9" : "left-4"}
-          peer-placeholder-shown:scale-100 
-          peer-placeholder-shown:translate-y-0 
-          peer-focus:scale-75
-          peer-focus:-translate-y-4
+          bg-white
+       
+          ${inputValue != "" && "-translate-y-7"}
           ${errors[id] ? "text-rose-500" : "text-zinc-400"}
         `}
       >
