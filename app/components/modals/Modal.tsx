@@ -1,6 +1,6 @@
 "use client";
 
-import { useCallback, useEffect, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import { IoMdClose } from "react-icons/io";
 
 import Button from "../Button";
@@ -153,7 +153,7 @@ const Modal: React.FC<ModalProps> = ({
                 <div className="text-lg font-semibold">{title}</div>
               </div>
               {/*body*/}
-              <div className="relative p-6 flex-auto">{body}</div>
+              <div className="relative px-6 py-4 flex-auto">{body}</div>
               {/*footer*/}
               <div className="flex flex-col gap-2 px-6 mb-4">
                 <div

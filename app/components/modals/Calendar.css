@@ -10,10 +10,10 @@
   -webkit-user-select: none;
   -moz-user-select: none;
   user-select: none;
-  /* padding-top: 1.2em; */
+  padding-top: 0 !important;
   display: flex;
   flex-direction: column;
-  /* width: 33em; */
+  width: 0 !important;
   z-index: 10;
   max-width: 90vw;
   min-height: 11.5em;
@@ -32,7 +32,7 @@
   border-radius: 50%;
   transition: 0.2s;
   border: 1px solid transparent;
-  /* margin-bottom: 0.3em; */
+  margin-bottom: 0 !important;
   color: rgba(0, 0, 0, 0.8);
   display: flex;
   justify-content: center;
@@ -42,14 +42,14 @@
 
 .Calendar__sectionWrapper {
   position: relative;
-  min-height: 16.8em;
+  min-height: 16.8em !important;
   overflow: hidden;
 }
 
 .Calendar__header {
   display: flex;
   color: var(--cl-color-black);
-  padding: 0em 2.9em;
+  padding: 0em 2.9em !important;
   align-items: center;
   overflow: hidden;
 }
@@ -59,6 +59,6 @@
   justify-content: space-between;
   color: var(--cl-color-disabled);
   font-size: 1.2em;
-  padding: 0 2.6em;
+  padding: 0 2.6em !important;
   position: relative;
 }

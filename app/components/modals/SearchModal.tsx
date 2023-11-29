@@ -2,7 +2,7 @@
 
 import qs from "query-string";
 import dynamic from "next/dynamic";
-import { useCallback, useEffect, useMemo, useState } from "react";
+import { useCallback, useEffect, useMemo, useState, useRef } from "react";
 import { Range } from "react-date-range";
 import { formatISO } from "date-fns";
 import { useRouter, useSearchParams } from "next/navigation";
@@ -19,7 +19,7 @@ import "@hassanmojab/react-modern-calendar-datepicker/lib/DatePicker.css";
 import Counter from "../inputs/Counter";
 import CountrySelect, { CountrySelectValue } from "../inputs/CountrySelect";
 import Heading from "../Heading";
-import "./Calendar.css";
+
 enum STEPS {
   LOCATION = 0,
   DATE = 1,
@@ -47,10 +47,50 @@ const SearchModal = () => {
     to: null,
   });
 
+  const calendarRef = useRef();
+
   useEffect(() => {
-    dateRange.endDate &&
-      console.log("date range: " + formatISO(dateRange.endDate));
-  }, [dateRange]);
+    if (calendarRef.current) {
+      const calendarContainer = calendarRef.current.querySelector(".Calendar");
+      const calendarDay = calendarRef.current.querySelector(".Calendar__day");
+      const calendarSectionWrapper = calendarRef.current.querySelector(
+        ".Calendar__sectionWrapper"
+      );
+      const calendarHeader =
+        calendarRef.current.querySelector(".Calendar__header");
+      const calendarWeek = calendarRef.current.querySelector(
+        ".Calendar__weekDays"
+      );
+      const calendarSection =
+        calendarRef.current.querySelector(".Calendar__section");
+
+      if (calendarContainer) {
+        calendarContainer.style.paddingTop = "0px";
+        calendarContainer.style.minHeight = "10.5em";
+      }
+
+      if (calendarDay) {
+        calendarDay.style.marginBottom = "0px";
+      }
+
+      if (calendarSectionWrapper) {
+        calendarSectionWrapper.style.minHeight = "16.8em";
+      }
+
+      if (calendarHeader) {
+        calendarHeader.style.padding = "0em 2.9em";
+      }
+
+      if (calendarWeek) {
+        calendarWeek.style.padding = "0 2.6em";
+        calendarWeek.style.marginBottom = "0";
+      }
+
+      if (calendarSection) {
+        calendarSection.style.paddingTop = "0";
+      }
+    }
+  }, [step, searchModal.isOpen]);
 
   const Map = useMemo(
     () =>
@@ -164,7 +204,7 @@ const SearchModal = () => {
 
   if (step === STEPS.DATE) {
     bodyContent = (
-      <div className="flex flex-col gap-4">
+      <div ref={calendarRef} className="flex flex-col gap-4">
         <Heading
           title="بازه زمانی اقامت خود را مشخص کنید"
           subtitle="از وقت آزاد خود اطمینان حاصل کنید!"
