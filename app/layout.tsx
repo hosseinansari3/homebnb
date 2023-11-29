@@ -11,6 +11,7 @@ import RentModal from "./components/modals/RentModal";
 import SearchModal from "./components/modals/SearchModal";
 import "next/font/local/";
 import localFont from "next/font/local";
+import CompleteProfileModal from "./components/modals/CompleteProfileModal";
 
 const myFont = localFont({
   src: "../public/fonts/Vazirmatn-FD-Black.ttf",
@@ -33,6 +34,7 @@ export default async function RootLayout({
       <body className={vazir.className}>
         <ToasterProvider />
         <RegisterModal />
+        <CompleteProfileModal />
         <LoginModal />
         <SearchModal />
         <RentModal />
