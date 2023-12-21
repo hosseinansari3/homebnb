@@ -11,7 +11,6 @@ export async function POST(request: Request) {
   const hashedPassword = await bcrypt.hash(password, 10);
 
   await connectMongoDB();
-  console.log(name + email + hashedPassword);
 
   const user = await User.findOne({ email }).select("_id");
   if (user) {

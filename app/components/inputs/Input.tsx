@@ -19,7 +19,7 @@ interface InputProps {
   required?: boolean;
   register: UseFormRegister<FieldValues>;
   errors: FieldErrors;
-  setInput: any;
+  setInput?: any;
 }
 
 const Input: React.FC<InputProps> = ({
@@ -64,7 +64,7 @@ const Input: React.FC<InputProps> = ({
 */
 
   useEffect(() => {
-    setInput(inputValue);
+    setInput && setInput(inputValue);
   }, [inputValue]);
 
   const handleInputChange = (e) => {

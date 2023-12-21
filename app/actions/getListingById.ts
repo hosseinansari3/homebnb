@@ -10,8 +10,6 @@ export default async function getListingById(params: IParams) {
   try {
     const { listingId } = params;
 
-    console.log("LIDDDD", listingId);
-
     const listing = await Listing.findOne({ _id: listingId })
       .populate({
         path: "user",

@@ -88,8 +88,6 @@ async function singInWithOAuh({ account, user }: any) {
     provider: account.provider,
   });
 
-  console.log("image: " + JSON.stringify(user));
-
   await newUser.save();
 
   return true;

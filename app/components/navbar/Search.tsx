@@ -11,7 +11,7 @@ import useCountries from "@/app/hooks/useCountries";
 const Search = () => {
   const searchModal = useSearchModal();
   const params = useSearchParams();
-  const { getByValue } = useCountries();
+  const { getByLabel } = useCountries();
 
   const locationValue = params?.get("locationValue");
   const startDate = params?.get("startDate");
@@ -20,11 +20,11 @@ const Search = () => {
 
   const locationLabel = useMemo(() => {
     if (locationValue) {
-      return getByValue(locationValue as string)?.label;
+      return getByLabel(locationValue as string)?.label;
     }
 
     return "هرجا";
-  }, [locationValue, getByValue]);
+  }, [locationValue, getByLabel]);
 
   const durationLabel = useMemo(() => {
     if (startDate && endDate) {

@@ -8,6 +8,11 @@ import { SafeUser } from "@/app/types";
 
 import Avatar from "../Avatar";
 import ListingCategory from "./ListingCategory";
+import localFont from "next/font/local";
+
+const myFont = localFont({
+  src: "../../../public/fonts/Vazirmatn-FD-Regular.woff2",
+});
 
 const Map = dynamic(() => import("../Map"), {
   ssr: false,
@@ -38,9 +43,9 @@ const ListingInfo: React.FC<ListingInfoProps> = ({
   category,
   locationValue,
 }) => {
-  const { getByValue } = useCountries();
+  const { getByLabel } = useCountries();
 
-  const coordinates = getByValue(locationValue)?.latlng;
+  const coordinates = getByLabel(locationValue)?.latlng;
 
   return (
     <div className="col-span-4 flex flex-col gap-8">
@@ -55,22 +60,21 @@ const ListingInfo: React.FC<ListingInfoProps> = ({
             gap-2
           "
         >
-          <div> {user?.name} صاحب ملک:</div>
+          <div>صاحب ملک: {user?.persianName} </div>
           <Avatar src={user?.image} />
         </div>
         <div
-          className="
-            flex 
-            flex-row 
-            items-center 
-            gap-4 
-            font-light
-            text-neutral-500
-          "
+          className={`${myFont.className}             flex 
+          flex-row 
+          items-center 
+          gap-4 
+          font-light
+          text-neutral-500
+`}
         >
-          <div>{guestCount} guests</div>
-          <div>{roomCount} rooms</div>
-          <div>{bathroomCount} bathrooms</div>
+          <div>{guestCount} مهمان</div>
+          <div>{roomCount} اتاق</div>
+          <div>{bathroomCount} سرویس بهداشتی</div>
         </div>
       </div>
       <hr />

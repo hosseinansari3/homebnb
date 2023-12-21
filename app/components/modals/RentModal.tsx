@@ -5,7 +5,7 @@ import { toast } from "react-hot-toast";
 import { FieldValues, SubmitHandler, useForm } from "react-hook-form";
 import dynamic from "next/dynamic";
 import { useRouter } from "next/navigation";
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 
 import useRentModal from "@/app/hooks/useRentModal";
 
@@ -17,6 +17,7 @@ import ImageUpload from "../inputs/ImageUpload";
 import Input from "../inputs/Input";
 import Heading from "../Heading";
 import CategoryInput from "../inputs/CategoryInput";
+import { LuImagePlus } from "react-icons/lu";
 
 enum STEPS {
   CATEGORY = 0,
@@ -30,6 +31,12 @@ enum STEPS {
 const RentModal = () => {
   const [step, setStep] = useState(STEPS.CATEGORY);
   const [isLoading, setIsLoading] = useState(false);
+  const [photo, setPhoto] = useState(null);
+  const [preview, setPreview] = useState([]);
+
+  useEffect(() => {
+    photo && setPreview(URL.createObjectURL(photo));
+  }, [photo]);
   const router = useRouter();
 
   const rentModal = useRentModal();
@@ -48,7 +55,7 @@ const RentModal = () => {
       guestCount: 1,
       roomCount: 1,
       bathroomCount: 1,
-      imageSrc: "",
+      imageFile: "",
       price: 1,
       title: "",
       description: "",
@@ -56,11 +63,15 @@ const RentModal = () => {
   });
 
   const category = watch("category");
+  const title = watch("title");
+  const description = watch("description");
+  const price = watch("price");
+
   const location = watch("location");
   const guestCount = watch("guestCount");
   const roomCount = watch("roomCount");
   const bathroomCount = watch("bathroomCount");
-  const imageSrc = watch("imageSrc");
+  const imageFile = watch("imageFile");
 
   const Map = useMemo(
     () =>
@@ -91,10 +102,25 @@ const RentModal = () => {
       return onNext();
     }
 
+    console.log("data", data);
+
     setIsLoading(true);
 
+    const formData = new FormData();
+    formData.append("category", category);
+    formData.append("location", JSON.stringify(location));
+    formData.append("guestCount", guestCount);
+    formData.append("roomCount", roomCount);
+    formData.append("bathroomCount", bathroomCount);
+    formData.append("imageFile", imageFile);
+    formData.append("title", title);
+    formData.append("price", price);
+    formData.append("description", description);
+
     axios
-      .post("/api/listings", data)
+      .post("/api/listings", formData, {
+        headers: { "Content-Type": "multipart/form-data" },
+      })
       .then(() => {
         toast.success("ملک شما اضافه شد!");
         router.refresh();
@@ -165,7 +191,10 @@ const RentModal = () => {
         />
         <CountrySelect
           value={location}
-          onChange={(value) => setCustomValue("location", value)}
+          onChange={(value) => {
+            setCustomValue("location", value);
+            console.log("value", value);
+          }}
         />
         <Map center={location?.latlng} />
       </div>
@@ -210,10 +239,31 @@ const RentModal = () => {
           title="عکس ملک خود را اضافه کنید"
           subtitle="ملکتان را برای مسافران به نمایش بگذارید!"
         />
-        <ImageUpload
-          onChange={(value) => setCustomValue("imageSrc", value)}
-          value={imageSrc}
-        />
+        <div className="relative flex justify-center items-center text-[80px] text-zinc-300 border-dotted border-[3px] border-zinc-300 h-56 w-[400px] m-auto rounded-3xl">
+          {photo == null ? (
+            <LuImagePlus />
+          ) : (
+            <img
+              src={preview}
+              className="h-full w-full object-cover rounded-3xl"
+            />
+          )}
+
+          <input
+            onChange={(e) => {
+              setPhoto(e.target.files[0]);
+              setCustomValue("imageFile", e.target.files[0]);
+            }}
+            id="img"
+            type="file"
+            className="hidden"
+          />
+
+          <label
+            for="img"
+            className="w-full h-full cursor-pointer absolute"
+          ></label>
+        </div>
       </div>
     );
   }

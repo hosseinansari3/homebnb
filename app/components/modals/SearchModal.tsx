@@ -50,6 +50,10 @@ const SearchModal = () => {
   const calendarRef = useRef();
 
   useEffect(() => {
+    console.log("loc", location);
+  }, [location]);
+
+  useEffect(() => {
     if (calendarRef.current) {
       const calendarContainer = calendarRef.current.querySelector(".Calendar");
       const calendarDay = calendarRef.current.querySelector(".Calendar__day");

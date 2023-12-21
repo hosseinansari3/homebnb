@@ -30,13 +30,13 @@ const formattedCountries = cities.map((city: any) => ({
 const useCountries = () => {
   const getAll = () => formattedCountries;
 
-  const getByValue = (value: string) => {
-    return formattedCountries.find((item: any) => item.value === value);
+  const getByLabel = (value: string) => {
+    return formattedCountries.find((item: any) => item.label === value);
   };
 
   return {
     getAll,
-    getByValue,
+    getByLabel,
   };
 };
 

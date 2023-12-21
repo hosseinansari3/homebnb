@@ -35,9 +35,9 @@ const ListingCard: React.FC<ListingCardProps> = ({
   currentUser,
 }) => {
   const router = useRouter();
-  const { getByValue } = useCountries();
+  const { getByLabel } = useCountries();
 
-  const location = getByValue(data.locationValue);
+  const location = getByLabel(data.locationValue);
 
   const handleCancel = useCallback(
     (e: React.MouseEvent<HTMLButtonElement>) => {

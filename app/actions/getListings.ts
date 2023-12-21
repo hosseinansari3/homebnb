@@ -59,8 +59,6 @@ export default async function getListings(params: IListingsParams) {
       query.locationValue = locationValue;
     }
 
-    console.log("QUERY:" + JSON.stringify(query));
-
     /*
     if (startDate && endDate) {
       const parsedStartDate = new Date("2023-10-23T20:30:00.000+00:00"); // Decode URL-encoded date string
@@ -161,9 +159,6 @@ export default async function getListings(params: IListingsParams) {
         },
       },
     ]);
-
-    console.log(listings);
-    console.log("Results:", JSON.stringify(listings, null, 2));
 
     return listings;
   } catch (error: any) {

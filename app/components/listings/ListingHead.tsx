@@ -23,9 +23,9 @@ const ListingHead: React.FC<ListingHeadProps> = ({
   id,
   currentUser,
 }) => {
-  const { getByValue } = useCountries();
+  const { getByLabel } = useCountries();
 
-  const location = getByValue(locationValue);
+  const location = getByLabel(locationValue);
 
   return (
     <>
