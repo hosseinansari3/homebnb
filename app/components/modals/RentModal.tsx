@@ -133,6 +133,8 @@ const RentModal = () => {
       })
       .finally(() => {
         setIsLoading(false);
+        setPreview([]);
+        setPhoto(null);
       });
   };
 
