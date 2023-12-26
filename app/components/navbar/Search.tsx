@@ -7,24 +7,29 @@ import { differenceInDays } from "date-fns";
 
 import useSearchModal from "@/app/hooks/useSearchModal";
 import useCountries from "@/app/hooks/useCountries";
+import localFont from "next/font/local";
+
+const myFont = localFont({
+  src: "../../../public/fonts/Vazirmatn-FD-Regular.woff2",
+});
 
 const Search = () => {
   const searchModal = useSearchModal();
   const params = useSearchParams();
   const { getByLabel } = useCountries();
 
-  const locationValue = params?.get("locationValue");
+  const location = params?.get("locationLabel");
   const startDate = params?.get("startDate");
   const endDate = params?.get("endDate");
   const guestCount = params?.get("guestCount");
 
   const locationLabel = useMemo(() => {
-    if (locationValue) {
-      return getByLabel(locationValue as string)?.label;
+    if (location) {
+      return location;
     }
 
-    return "هرجا";
-  }, [locationValue, getByLabel]);
+    return "همه شهرها";
+  }, [location, getByLabel]);
 
   const durationLabel = useMemo(() => {
     if (startDate && endDate) {
@@ -36,15 +41,15 @@ const Search = () => {
         diff = 1;
       }
 
-      return `${diff} Days`;
+      return `${diff} روز`;
     }
 
-    return "هر هفته";
+    return "تمام روزها";
   }, [startDate, endDate]);
 
   const guestLabel = useMemo(() => {
     if (guestCount) {
-      return `${guestCount} Guests`;
+      return `${guestCount} مسافر`;
     }
 
     return "اضافه کردن مسافر";
@@ -53,7 +58,8 @@ const Search = () => {
   return (
     <div
       onClick={searchModal.onOpen}
-      className="
+      className={`
+      ${myFont.className}
         border-[1px] 
         w-full 
         md:w-auto 
@@ -63,7 +69,7 @@ const Search = () => {
         hover:shadow-md 
         transition 
         cursor-pointer
-      "
+      `}
     >
       <div
         className="

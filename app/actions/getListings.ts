@@ -4,13 +4,13 @@ import { AnyArray } from "mongoose";
 import { json } from "stream/consumers";
 
 export interface IListingsParams {
-  user?: string;
+  author?: string;
   guestCount?: number;
   roomCount?: number;
   bathroomCount?: number;
   startDate?: any;
   endDate?: any;
-  locationValue?: string;
+  locationLabel?: string;
   category?: string;
 }
 
@@ -21,7 +21,7 @@ export default async function getListings(params: IListingsParams) {
       roomCount,
       guestCount,
       bathroomCount,
-      locationValue,
+      locationLabel,
       startDate,
       endDate,
       category,
@@ -55,8 +55,8 @@ export default async function getListings(params: IListingsParams) {
       };
     }
 
-    if (locationValue) {
-      query.locationValue = locationValue;
+    if (locationLabel) {
+      query.locationLabel = locationLabel;
     }
 
     /*
