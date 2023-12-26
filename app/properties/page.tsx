@@ -9,16 +9,21 @@ const PropertiesPage = async () => {
   const currentUser = await getCurrentUser();
 
   if (!currentUser) {
-    return <EmptyState title="Unauthorized" subtitle="Please login" />;
+    return (
+      <EmptyState
+        title="اجازه دسترسی به این صفحه را ندارید"
+        subtitle="به حساب کاربری خود وارد شوید"
+      />
+    );
   }
 
-  const listings = await getListings({ userId: currentUser._id });
+  const listings = await getListings({ author: currentUser._id });
 
   if (listings.length === 0) {
     return (
       <EmptyState
-        title="No properties found"
-        subtitle="Looks like you have no properties."
+        title="هیج ملکی یافت نشد"
+        subtitle="شما هنوز ملکی را اضافه نکرده اید!"
       />
     );
   }

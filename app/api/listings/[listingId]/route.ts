@@ -25,7 +25,7 @@ export async function DELETE(
 
   const listing = await Listing.deleteOne({
     _id: listingId,
-    user: currentUser._id,
+    author: currentUser._id,
   });
 
   return NextResponse.json(listing);

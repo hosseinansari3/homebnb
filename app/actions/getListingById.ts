@@ -12,13 +12,13 @@ export default async function getListingById(params: IParams) {
 
     const listing = await Listing.findOne({ _id: listingId })
       .populate({
-        path: "user",
+        path: "author",
         model: "Users",
       })
       .lean();
 
     if (!listing) {
-      throw new Error("No listing found.");
+      throw new Error("ملکی یافت نشد.");
     }
 
     return listing;

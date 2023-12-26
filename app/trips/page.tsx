@@ -9,16 +9,27 @@ const TripsPage = async () => {
   const currentUser: any = await getCurrentUser();
 
   if (!currentUser) {
-    return <EmptyState title="Unauthorized" subtitle="Please login" />;
+    return (
+      <EmptyState
+        title="اجازه دسترسی به این صفحه را ندارید"
+        subtitle="به حساب کاربری خود وارد شوید"
+      />
+    );
   }
 
   const reservations = await getReservations({ userId: currentUser._id });
 
+  {
+    reservations?.map((reservation: any) =>
+      console.log("REZZI", reservation.listings)
+    );
+  }
+
   if (reservations?.length === 0) {
     return (
       <EmptyState
-        title="No trips found"
-        subtitle="Looks like you havent reserved any trips."
+        title="سفری یافت نشد"
+        subtitle="شما تاکنون هیچ ملکی را رزرو نکرده اید"
       />
     );
   }

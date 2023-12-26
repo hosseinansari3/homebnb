@@ -44,12 +44,12 @@ export async function POST(request: Request) {
     bathroomCount,
     reservations: [],
     guestCount,
-    locationValue: location.label,
+    locationLabel: location.label,
     price: parseInt(price, 10),
-    user: currentUser._id,
+    author: currentUser._id,
   });
 
-  const savedListing = await listing.save();
+  await listing.save();
 
   return NextResponse.json({});
 }

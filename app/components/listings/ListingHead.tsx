@@ -10,7 +10,7 @@ import HeartButton from "../HeartButton";
 
 interface ListingHeadProps {
   title: string;
-  locationValue: string;
+  locationLabel: string;
   imageSrc: string;
   id: string;
   currentUser?: SafeUser | null;
@@ -18,14 +18,14 @@ interface ListingHeadProps {
 
 const ListingHead: React.FC<ListingHeadProps> = ({
   title,
-  locationValue,
+  locationLabel,
   imageSrc,
   id,
   currentUser,
 }) => {
   const { getByLabel } = useCountries();
 
-  const location = getByLabel(locationValue);
+  const location = getByLabel(locationLabel);
 
   return (
     <>

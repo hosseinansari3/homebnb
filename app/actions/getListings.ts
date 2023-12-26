@@ -17,7 +17,7 @@ export interface IListingsParams {
 export default async function getListings(params: IListingsParams) {
   try {
     const {
-      user,
+      author,
       roomCount,
       guestCount,
       bathroomCount,
@@ -29,8 +29,8 @@ export default async function getListings(params: IListingsParams) {
 
     let query: any = {};
 
-    if (user) {
-      query.user = user;
+    if (author) {
+      query.author = author;
     }
 
     if (category) {

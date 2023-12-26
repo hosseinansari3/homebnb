@@ -31,7 +31,7 @@ interface ListingInfoProps {
         description: string;
       }
     | undefined;
-  locationValue: string;
+  locationLabel: string;
 }
 
 const ListingInfo: React.FC<ListingInfoProps> = ({
@@ -41,11 +41,11 @@ const ListingInfo: React.FC<ListingInfoProps> = ({
   roomCount,
   bathroomCount,
   category,
-  locationValue,
+  locationLabel,
 }) => {
   const { getByLabel } = useCountries();
 
-  const coordinates = getByLabel(locationValue)?.latlng;
+  const coordinates = getByLabel(locationLabel)?.latlng;
 
   return (
     <div className="col-span-4 flex flex-col gap-8">

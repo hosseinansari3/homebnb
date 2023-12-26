@@ -43,7 +43,8 @@ const ReservationsClient: React.FC<ReservationsClientProps> = ({
 
   return (
     <Container>
-      <Heading title="Reservations" subtitle="Bookings on your properties" />
+      <Heading title="ملک های رزرو شده " subtitle="ملک های رزرو شده شما" />
+      {console.log("ReSSSZ", reservations)}
       <div
         className="
           mt-10
@@ -57,18 +58,21 @@ const ReservationsClient: React.FC<ReservationsClientProps> = ({
           gap-8
         "
       >
-        {reservations.map((reservation: any) => (
-          <ListingCard
-            key={reservation._id}
-            data={reservation.listingId}
-            reservation={reservation}
-            actionId={reservation._id}
-            onAction={onCancel}
-            disabled={deletingId === reservation._id}
-            actionLabel="Cancel guest reservation"
-            currentUser={currentUser}
-          />
-        ))}
+        {reservations.map((reservation: any) => {
+          console.log("vation", reservation);
+          return (
+            <ListingCard
+              key={reservation._id}
+              data={reservation.listings[0]}
+              reservation={reservation}
+              actionId={reservation._id}
+              onAction={onCancel}
+              disabled={deletingId === reservation._id}
+              actionLabel="لغو رزرو مهمان"
+              currentUser={currentUser}
+            />
+          );
+        })}
       </div>
     </Container>
   );

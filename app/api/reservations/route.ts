@@ -11,6 +11,7 @@ export async function POST(request: Request) {
   if (!currentUser) {
     return NextResponse.error();
   }
+  console.log("schema", Listing.schema.paths);
 
   const body = await request.json();
   const { listingId, startDate, endDate, totalPrice } = body;

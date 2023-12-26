@@ -47,9 +47,11 @@ const TripsClient: React.FC<TripsClientProps> = ({
   return (
     <Container>
       <Heading
-        title="Trips"
-        subtitle="Where you've been and where you're going"
+        title="سفرها"
+        subtitle="مکان هایی که در آنجا بوده اید یا قصد دارید بروید"
       />
+      {console.log("ReSSSZ", reservations)}
+
       <div
         className="
           mt-10
@@ -66,12 +68,12 @@ const TripsClient: React.FC<TripsClientProps> = ({
         {reservations.map((reservation: any) => (
           <ListingCard
             key={reservation._id}
-            data={reservation.listingId}
+            data={reservation.listings[0]}
             reservation={reservation}
             actionId={reservation._id}
             onAction={onCancel}
             disabled={deletingId === reservation.id}
-            actionLabel="Cancel reservation"
+            actionLabel="لغو رزرو"
             currentUser={currentUser}
           />
         ))}

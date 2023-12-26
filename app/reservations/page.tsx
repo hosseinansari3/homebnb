@@ -9,12 +9,19 @@ const ReservationsPage = async () => {
   const currentUser: any = await getCurrentUser();
 
   if (!currentUser) {
-    return <EmptyState title="Unauthorized" subtitle="Please login" />;
+    return (
+      <EmptyState
+        title="اجازه دسترسی به این صفحه را ندارید"
+        subtitle="به حساب کاربری خود وارد شوید"
+      />
+    );
   }
 
   const reservations: any = await getReservations({
     authorId: currentUser._id,
   });
+
+  console.log("ressss", reservations);
 
   if (reservations?.length === 0) {
     return (

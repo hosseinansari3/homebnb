@@ -5,14 +5,14 @@ const listingSchema = new mongoose.Schema(
     title: String,
     description: String,
     imageSrc: String,
+
     createdAt: { type: Date, default: Date.now },
     category: String,
     roomCount: Number,
     bathroomCount: Number,
     guestCount: Number,
-    locationValue: String,
-    kos: String,
-    user: { type: mongoose.Schema.Types.ObjectId, ref: "Users" },
+    locationLabel: String,
+    author: { type: mongoose.Schema.Types.ObjectId, ref: "Users" },
     reservations: [
       {
         type: mongoose.Schema.Types.ObjectId,
@@ -21,7 +21,7 @@ const listingSchema = new mongoose.Schema(
     ],
     price: Number,
   },
-  { timestamps: true }
+  { timestamps: true, strict: false }
 );
 
 const Listing =

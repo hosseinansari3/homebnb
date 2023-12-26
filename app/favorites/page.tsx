@@ -12,8 +12,8 @@ const ListingPage = async () => {
   if (listings.length === 0) {
     return (
       <EmptyState
-        title="No favorites found"
-        subtitle="Looks like you have no favorite listings."
+        title="هیچ آیتم مورد علاقه ای یافت نشد"
+        subtitle="فهرست علاقه مندی شما خالی است."
       />
     );
   }

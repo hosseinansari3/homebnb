@@ -22,14 +22,25 @@ export default async function getReservations(params: IParams) {
   }
 
   if (authorId) {
-    query.listing = { userId: authorId };
+    query.listings = { $elemMatch: { author: authorId } };
   }
 
   try {
-    const reservations = await Reservation.find(query)
-      .populate("userId")
-      .populate("listingId")
-      .lean();
+    const reservations = await Reservation.aggregate([
+      {
+        $lookup: {
+          from: "listings", // Replace with the actual name of your reservations collection
+          localField: "listingId", // Replace with the field that connects reservations to listings
+          foreignField: "_id", // Replace with the field that connects reservations to listings
+          as: "listings",
+        },
+      },
+      {
+        $match: {
+          ...query,
+        },
+      },
+    ]);
 
     if (!reservations) {
       return null;
