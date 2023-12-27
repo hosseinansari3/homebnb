@@ -16,10 +16,12 @@ import Input from "../inputs/Input";
 import Heading from "../Heading";
 import Button from "../Button";
 import { IoPersonAddOutline } from "react-icons/io5";
+import useCompleteProfilerModal from "@/app/hooks/useCompleteProfileModal";
 
 const CompleteProfileModal = () => {
   const registerModal = useRegisterModal();
   const loginModal = useLoginModal();
+  const completeProfileModal = useCompleteProfilerModal();
 
   const [isLoading, setIsLoading] = useState(false);
   const [preview, setPreview] = useState([]);
@@ -59,6 +61,7 @@ const CompleteProfileModal = () => {
         if (res.data.status == 201) {
           toast.success(res.data.Message);
           registerModal.onClose();
+          completeProfileModal.onClose();
         } else {
           toast.error(res.error);
         }
@@ -78,10 +81,13 @@ const CompleteProfileModal = () => {
 
   const bodyContent = (
     <div className="flex flex-col gap-4">
-      <Heading title="Welcome to Airbnb" subtitle="Create an account!" />
+      <Heading
+        title="تکمیل حساب کاربری"
+        subtitle="حساب کاربری خود را کامل کنید"
+      />
       <Input
-        id="email"
-        label="ایمیل"
+        id="userName"
+        label="نام کاربری"
         disabled={isLoading}
         register={register}
         errors={errors}
@@ -115,10 +121,10 @@ const CompleteProfileModal = () => {
   return (
     <Modal
       disabled={isLoading}
-      isOpen={registerModal.isOpen}
-      title="Register"
-      actionLabel="Continue"
-      onClose={registerModal.onClose}
+      isOpen={completeProfileModal.isOpen}
+      title="تکمیل پروفایل"
+      actionLabel="ادامه"
+      onClose={completeProfileModal.onClose}
       onSubmit={handleSubmit(onSubmit)}
       body={bodyContent}
     />

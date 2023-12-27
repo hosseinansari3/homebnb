@@ -33,7 +33,10 @@ export async function POST(request: Request) {
       }
     );
 
-    return NextResponse.json({ massage: "user registered" }, { status: 201 });
+    return NextResponse.json(
+      { massage: "ثبت نام با موفقیت انجام شد" },
+      { status: 201 }
+    );
   } catch (error) {
     console.log(error);
     return NextResponse.json(

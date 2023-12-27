@@ -1,6 +1,6 @@
 "use client";
 
-import { useCallback, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { toast } from "react-hot-toast";
 import { signIn } from "next-auth/react";
 import { FieldValues, SubmitHandler, useForm } from "react-hook-form";
@@ -15,12 +15,22 @@ import Modal from "./Modal";
 import Input from "../inputs/Input";
 import Heading from "../Heading";
 import Button from "../Button";
+import useCompleteProfilerModal from "@/app/hooks/useCompleteProfileModal";
+import getCurrentUser from "@/app/actions/getCurrentUser";
 
-const LoginModal = () => {
+const LoginModal = ({ currentUser }) => {
   const router = useRouter();
   const loginModal = useLoginModal();
+  const completeProfileModal = useCompleteProfilerModal();
+
   const registerModal = useRegisterModal();
   const [isLoading, setIsLoading] = useState(false);
+
+  useEffect(() => {
+    if (currentUser && currentUser?.image == undefined) {
+      completeProfileModal.onOpen();
+    }
+  }, [currentUser]);
 
   const {
     register,
@@ -123,8 +133,8 @@ const LoginModal = () => {
     <Modal
       disabled={isLoading}
       isOpen={loginModal.isOpen}
-      title="Login"
-      actionLabel="Continue"
+      title="ورود"
+      actionLabel="ادامه"
       onClose={loginModal.onClose}
       onSubmit={handleSubmit(onSubmit)}
       body={bodyContent}

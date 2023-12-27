@@ -124,8 +124,11 @@ const UserMenu: React.FC<UserMenuProps> = ({ currentUser }) => {
                 </>
               ) : (
                 <>
-                  <MenuItem label="Login" onClick={loginModal.onOpen} />
-                  <MenuItem label="Sign up" onClick={registerModal.onOpen} />
+                  <MenuItem
+                    label="ورود به حساب کاربری"
+                    onClick={loginModal.onOpen}
+                  />
+                  <MenuItem label="ثبت نام" onClick={registerModal.onOpen} />
                 </>
               )}
             </>

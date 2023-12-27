@@ -23,11 +23,17 @@ export const POST = async (req, res) => {
       path.join(process.cwd(), "public/uploads/" + filename),
       buffer
     );
-
-    await User.findByIdAndUpdate(currentUser._id, {
-      persianName: name,
-      image: "http://localhost:3000/uploads/" + filename,
-    });
+    console.log("id", currentUser);
+    await User.findByIdAndUpdate(
+      currentUser?._id,
+      {
+        $set: {
+          persianName: name,
+          image: "http://localhost:3000/uploads/" + filename,
+        },
+      },
+      { new: true }
+    );
     return NextResponse.json({ Message: "Success", status: 201 });
   } catch (error) {
     console.log("Error occured ", error);

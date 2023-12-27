@@ -29,13 +29,14 @@ export default async function RootLayout({
   children: React.ReactNode;
 }) {
   const currentUser = await getCurrentUser();
+
   return (
     <html lang="fa" dir="rtl">
       <body className={vazir.className}>
         <ToasterProvider />
         <RegisterModal />
         <CompleteProfileModal />
-        <LoginModal />
+        <LoginModal currentUser={currentUser} />
         <SearchModal />
         <RentModal />
         <Navbar currentUser={currentUser} />
