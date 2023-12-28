@@ -86,13 +86,15 @@ const Modal: React.FC<ModalProps> = ({
         <div
           className="
           relative 
-          w-full
-          md:w-4/6
+          w-5/6
+
+          sm:w-4/6
+          md:w-4/5
           lg:w-3/6
           xl:w-2/5
           my-6
           mx-auto 
-          h-full 
+          h-fit
           lg:h-auto
           md:h-auto
           "
@@ -119,7 +121,7 @@ const Modal: React.FC<ModalProps> = ({
               relative 
               flex 
               flex-col 
-              w-full 
+              
               bg-white 
               outline-none 
               focus:outline-none

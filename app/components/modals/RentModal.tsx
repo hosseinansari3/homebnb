@@ -241,7 +241,7 @@ const RentModal = () => {
           title="عکس ملک خود را اضافه کنید"
           subtitle="ملکتان را برای مسافران به نمایش بگذارید!"
         />
-        <div className="relative flex justify-center items-center text-[80px] text-zinc-300 border-dotted border-[3px] border-zinc-300 h-56 w-[400px] m-auto rounded-3xl">
+        <div className="relative w-full flex justify-center items-center text-[80px] text-zinc-300 border-dotted border-[3px] border-zinc-300 h-56 w-[400px] m-auto rounded-3xl">
           {photo == null ? (
             <LuImagePlus />
           ) : (

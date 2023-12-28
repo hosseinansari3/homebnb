@@ -62,10 +62,10 @@ const RegisterModal = () => {
 
   const bodyContent = (
     <div className="flex flex-col gap-4">
-      <Heading title="Welcome to Airbnb" subtitle="Create an account!" />
+      <Heading title="خوش آمدید" subtitle="ایجاد حساب کاربری" />
       <Input
         id="email"
-        label="Email"
+        label="ایمیل"
         disabled={isLoading}
         register={register}
         errors={errors}
@@ -73,7 +73,7 @@ const RegisterModal = () => {
       />
       <Input
         id="name"
-        label="Name"
+        label="نام و نام خانوادگی"
         disabled={isLoading}
         register={register}
         errors={errors}
@@ -81,7 +81,7 @@ const RegisterModal = () => {
       />
       <Input
         id="password"
-        label="Password"
+        label="گذرواژه"
         type="password"
         disabled={isLoading}
         register={register}
@@ -96,13 +96,13 @@ const RegisterModal = () => {
       <hr />
       <Button
         outline
-        label="Continue with Google"
+        label="ثبت نام با گوگل"
         icon={FcGoogle}
         onClick={() => signIn("google")}
       />
       <Button
         outline
-        label="Continue with Github"
+        label="ثبت نام با گیت هاب"
         icon={AiFillGithub}
         onClick={() => signIn("github")}
       />
@@ -115,7 +115,7 @@ const RegisterModal = () => {
         "
       >
         <p>
-          Already have an account?
+          قبلا ثبت نام کرده اید؟
           <span
             onClick={onToggle}
             className="
@@ -125,7 +125,7 @@ const RegisterModal = () => {
             "
           >
             {" "}
-            Log in
+            ورود به حساب کاربری
           </span>
         </p>
       </div>
@@ -136,8 +136,8 @@ const RegisterModal = () => {
     <Modal
       disabled={isLoading}
       isOpen={registerModal.isOpen}
-      title="Register"
-      actionLabel="Continue"
+      title="ثبت نام"
+      actionLabel="ادامه"
       onClose={registerModal.onClose}
       onSubmit={handleSubmit(onSubmit)}
       body={bodyContent}

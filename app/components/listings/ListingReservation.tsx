@@ -38,6 +38,7 @@ const ListingReservation: React.FC<ListingReservationProps> = ({
   return (
     <div
       className="
+      relative
       bg-white 
         rounded-xl 
         border-[1px]

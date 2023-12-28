@@ -27,9 +27,10 @@ const Navbar: React.FC<NavbarProps> = ({ currentUser }) => {
             md:gap-0
           "
           >
-            <Logo />
-            <Search />
             <UserMenu currentUser={currentUser} />
+
+            <Search />
+            <Logo />
           </div>
         </Container>
       </div>

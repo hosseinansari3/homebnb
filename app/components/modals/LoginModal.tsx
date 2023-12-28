@@ -71,10 +71,10 @@ const LoginModal = ({ currentUser }) => {
 
   const bodyContent = (
     <div className="flex flex-col gap-4">
-      <Heading title="Welcome back" subtitle="Login to your account!" />
+      <Heading title="ورود" subtitle="ورود به حساب کاربری" />
       <Input
         id="email"
-        label="Email"
+        label="ایمیل"
         disabled={isLoading}
         register={register}
         errors={errors}
@@ -82,7 +82,7 @@ const LoginModal = ({ currentUser }) => {
       />
       <Input
         id="password"
-        label="Password"
+        label="گذرواژه"
         type="password"
         disabled={isLoading}
         register={register}
@@ -97,13 +97,13 @@ const LoginModal = ({ currentUser }) => {
       <hr />
       <Button
         outline
-        label="Continue with Google"
+        label="ورود با گوگل"
         icon={FcGoogle}
         onClick={() => signIn("google")}
       />
       <Button
         outline
-        label="Continue with Github"
+        label="ورود با گیت هاب"
         icon={AiFillGithub}
         onClick={() => signIn("github")}
       />
@@ -112,7 +112,7 @@ const LoginModal = ({ currentUser }) => {
       text-neutral-500 text-center mt-4 font-light"
       >
         <p>
-          First time using Airbnb?
+          حساب کاربری ندارید؟
           <span
             onClick={onToggle}
             className="
@@ -122,7 +122,7 @@ const LoginModal = ({ currentUser }) => {
             "
           >
             {" "}
-            Create an account
+            ساخت حساب کاربری
           </span>
         </p>
       </div>
